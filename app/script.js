@@ -10,7 +10,7 @@
 // DIFFERENT DATA! Contains movement dates, currency and locale
 
 const account1 = {
-  owner: 'Jonas Schmedtmann',
+  owner: 'Shailly Sahay',
   movements: [200, 455.23, -306.5, 25000, -642.21, -133.9, 79.97, 1300],
   interestRate: 1.2, // %
   pin: 1111,
@@ -30,7 +30,7 @@ const account1 = {
 };
 
 const account2 = {
-  owner: 'Jessica Davis',
+  owner: 'Dhiraj Sharma',
   movements: [5000, 3400, -150, -790, -3210, -1000, 8500, -30],
   interestRate: 1.5,
   pin: 2222,
@@ -49,7 +49,47 @@ const account2 = {
   locale: 'en-US',
 };
 
-const accounts = [account1, account2];
+const account3 = {
+  owner: 'Shweta Bibhuti',
+  movements: [5000, 3400, -150, -790, -3210, -1000, 8500, -30],
+  interestRate: 1.5,
+  pin: 3333,
+
+  movementsDates: [
+    '2019-11-01T13:15:33.035Z',
+    '2019-11-30T09:48:16.867Z',
+    '2019-12-25T06:04:23.907Z',
+    '2020-01-25T14:18:46.235Z',
+    '2020-02-05T16:33:06.386Z',
+    '2020-04-10T14:43:26.374Z',
+    '2020-06-25T18:49:59.371Z',
+    '2020-07-26T12:01:20.894Z',
+  ],
+  currency: 'USD',
+  locale: 'en-US',
+};
+
+const account4 = {
+  owner: 'Rahul Kishore',
+  movements: [5000, 3400, -150, -790, -3210, -1000, 8500, -30],
+  interestRate: 1.5,
+  pin: 4444,
+
+  movementsDates: [
+    '2019-11-01T13:15:33.035Z',
+    '2019-11-30T09:48:16.867Z',
+    '2019-12-25T06:04:23.907Z',
+    '2020-01-25T14:18:46.235Z',
+    '2020-02-05T16:33:06.386Z',
+    '2020-04-10T14:43:26.374Z',
+    '2020-06-25T18:49:59.371Z',
+    '2020-07-26T12:01:20.894Z',
+  ],
+  currency: 'USD',
+  locale: 'en-US',
+};
+
+const accounts = [account1, account2, account3, account4];
 
 /////////////////////////////////////////////////
 // Elements
@@ -199,6 +239,9 @@ const startLogOutTimer = function () {
       clearInterval(timer);
       labelWelcome.textContent = 'Log in to get started';
       containerApp.style.opacity = 0;
+      btnLogout.style.opacity = 0;
+      inputLogin.forEach(e => (e.style.display = 'block'));
+      btnLogin.style.display = 'block';
     }
 
     // Decrease 1s
@@ -206,7 +249,7 @@ const startLogOutTimer = function () {
   };
 
   // Set time to 5 minutes
-  let time = 120;
+  let time = 300;
 
   // Call the timer every second
   tick();
@@ -237,6 +280,8 @@ btnLogin.addEventListener('click', function (e) {
       currentAccount.owner.split(' ')[0]
     }`;
     containerApp.style.opacity = 100;
+    containerApp.style.visibility = 'visible';
+    containerApp.style.pointerEvents = 'auto';
 
     // Create current date and time
     const now = new Date();
@@ -266,6 +311,80 @@ btnLogin.addEventListener('click', function (e) {
 
     // Update UI
     updateUI(currentAccount);
+
+    introJs()
+      .setOptions({
+        steps: [
+          {
+            title: "<h4>HEY! Let's begin!</h4>",
+            intro: '',
+          },
+          {
+            element: document.querySelector('.logout-timer'),
+            title: '<h4>You will be logged out in 5 minutes</h4>',
+          },
+          {
+            element: document.querySelector('.logout__btn'),
+            title: '<h4>Or directly logout from here.</h4>',
+          },
+          {
+            element: document.querySelector('.movements'),
+            title: '<h4>Transactions</h4>',
+            intro: '<p>Here are your recent transactions 🏦💸</p>',
+          },
+          {
+            element: document.querySelector('.btn--sort'),
+            title: '<h4>Sort</h4>',
+            intro: '<p>You can sort the transactions.</p> ',
+          },
+          {
+            element: document.querySelector('.balance__value'),
+            title: '<h4>Your current balance</h4>',
+            intro: "<p>That's a lot of money 💰💰</p> ",
+          },
+
+          {
+            element: document.querySelector('.summary__value--in'),
+            title: '<h4>Your Total Deposit</h4>',
+          },
+
+          {
+            element: document.querySelector('.summary__value--out'),
+            title: '<h4>Your Total Withdrawal</h4>',
+          },
+
+          {
+            element: document.querySelector('.summary__value--interest'),
+            title: '<h4>The interest provided by the bank</h4>',
+          },
+          {
+            element: document.querySelector('.operation--transfer'),
+            title: '<h4>Transfer money</h4>',
+            intro:
+              '<p>You can send money to any of the other 3 accounts. (Unfortunately, you cannot send money to yourself❌ and you cannot tranfer money more than your current balance).<br> The transactions will be visible in both the accounts.<br> 1. user-ss<br>2. user-ds<br>3. user-sb<br>4. user-rk</p>',
+          },
+          {
+            element: document.querySelector('.operation--loan'),
+            title: '<h4>Request loan</h4>',
+            intro:
+              '<p>You can request loan from the bank, but there is a limit on the amount you can request.<br>The amount will only be credited if it is more than zero and if any one of your transactions is greater than 10% of the amount.</p>',
+          },
+          {
+            element: document.querySelector('.operation--close'),
+            title: '<h4>Close your account⚠️</h4>',
+            intro:
+              '<p>You can terminate your account. Just enter the correct username and password.<br> 1. user-ss, pin-1111<br>2. user-ds, pin-2222<br>3. user-sb, pin-3333<br>4. user-rk, pin-4444</p>',
+          },
+          {
+            title: "<h4>That's it!</h4>",
+            intro:
+              '<p>If you have transferred money to someone else, login to that account to check if they have received the money or not.</p>',
+          },
+        ],
+        showProgress: true,
+        showBullets: false,
+      })
+      .start();
   }
 });
 
@@ -368,3 +487,19 @@ btnSort.addEventListener('click', function (e) {
   displayMovements(currentAccount, !sorted);
   sorted = !sorted;
 });
+
+// INTROJS
+introJs()
+  .setOptions({
+    steps: [
+      {
+        element: document.querySelector('.login'),
+        title: '<h4>Credentials!?</h4>',
+        intro:
+          '<p>You can use either of the 4 accounts to access the portal.<br><br> 1. user-ss, pin-1111<br>2. user-ds, pin-2222<br>3. user-sb, pin-3333<br>4. user-rk, pin-4444<br><br> Please do remember the other account details, if you wish to transfer money to them :))</p>',
+      },
+    ],
+    showProgress: true,
+    showBullets: false,
+  })
+  .start();

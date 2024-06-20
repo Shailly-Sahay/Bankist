@@ -281,3 +281,21 @@ btnLogin.addEventListener('click', function () {
   console.log('dd');
   console.log(this.href);
 });
+
+// INTROJS
+introJs()
+  .setOptions({
+    steps: [
+      {
+        element: document.querySelector('.btn--login'),
+        title: '<h4>HOLA!</h4>',
+        intro:
+          '<p> This website has an inbuilt application for its users. Click here to visit the portal." </p>',
+      },
+    ],
+    tooltopclass: 'introJs',
+    showProgress: true,
+    showBullets: false,
+    disableInteraction: true,
+  })
+  .start();
